@@ -6,7 +6,7 @@
   "type": "commonjs",
   "license": "Apache-2.0",
   "scripts": {
-    "build:dist": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.json",
     "feature-start": "feature-start --featureName",
     "feature-finish": "feature-finish",
     "release-start": "release-start",
