@@ -1,6 +1,6 @@
 {
   "name": "@netcracker/qubership-apihub-jest-chrome-in-docker-environment",
-  "version": "1.0.4-feature-fix-headful-mode.1",
+  "version": "1.0.4-feature-fix-headful-mode.2",
   "description": "",
   "main": "dist/lib/index.js",
   "type": "commonjs",
