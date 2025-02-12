@@ -1,6 +1,6 @@
 {
   "name": "@netcracker/qubership-apihub-jest-chrome-in-docker-environment",
-  "version": "1.0.4-feature-fix-headful-mode.0",
+  "version": "1.0.4-dev.0",
   "description": "",
   "main": "dist/lib/index.js",
   "type": "commonjs",
@@ -13,7 +13,7 @@
     "release-finish": "release-finish"
   },
   "devDependencies": {
-    "@netcracker/qubership-apihub-npm-gitflow": "2.0.0",
+    "@netcracker/qubership-apihub-npm-gitflow": "feature-npm-update",
     "@types/find-node-modules": "2.1.2",
     "@types/jest-environment-puppeteer": "5.0.6",
     "typescript": "5.3.3"
