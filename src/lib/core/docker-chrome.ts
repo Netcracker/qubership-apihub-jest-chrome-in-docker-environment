@@ -83,7 +83,7 @@ const dockerUp = async (flags: ChromeArg[]): Promise<DockerUpResult> => {
 
       return { containerId: chromeContainerId, ipAddress: ipAddress, hostIpAddress: gateway, webSocketUri: webSocketUri, headless: false };
     } else {
-      // The problem that --remote-debugging-address is ignored i headful mode and we do not know how to forward 127.0.0.1 outside from a container
+      // The problem that --remote-debugging-address is ignored in headful mode and we do not know how to forward 127.0.0.1 outside from a container
       // Links:
       //  * https://serverfault.com/questions/1132636/how-to-forward-inside-a-container-requests-from-0-0-0-0-to-127-0-0-1
       //  * https://stackoverflow.com/questions/40538197/chrome-remote-debugging-from-another-machine
