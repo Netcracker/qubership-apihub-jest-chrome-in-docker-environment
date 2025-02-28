@@ -3,14 +3,14 @@ name: Frontend CI Workflow
 on:
   push:
     branches:
-      - main
       - release
+      - hotfix
       - develop
       - feature/*
+      - bugfix/*
+    tags:
+      - '**'
   delete:
-    branches:
-      - release
-      - feature/*
 
 jobs:
   call-frontend-ci-workflow:
