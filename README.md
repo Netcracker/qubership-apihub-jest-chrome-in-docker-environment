@@ -47,7 +47,7 @@ here
     }
   }
   ```
-* `pathToPuppeteerLaunchOptions` is an absolute path to a file that conforms to format of [PuppeteerLaunchOptions](https://pptr.dev/api/puppeteer.puppeteerlaunchoptions).
+* `pathToPuppeteerLaunchOptions` is an absolute path to a file that conforms to format of [PuppeteerLaunchOptions](https://pptr.dev/api/puppeteer.launchoptions).
   But some default values defer from puppeteers API:
  
   | Name     | Default |
