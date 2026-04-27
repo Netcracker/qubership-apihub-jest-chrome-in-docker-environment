@@ -183,6 +183,11 @@ export async function initPuppeteerWithLocalChromeConfig() {
         }
     }
     mergedConfig.launch.defaultViewport = mergedConfig.launch?.defaultViewport || null;
+    // Puppeteer 24+ no longer auto-discovers system Chrome when PUPPETEER_SKIP_DOWNLOAD is set.
+    // See https://pptr.dev/troubleshooting#chrome-is-downloaded-but-fails-to-launch
+    if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+        mergedConfig.launch.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH
+    }
     setChromeArgs(mergedConfig, "launch")
     // @ts-ignore
     delete mergedConfig["connect"]
