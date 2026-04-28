@@ -48,9 +48,6 @@ export function getNodeBinaryCLIPath() {
     return `${isWindows ? "\"" : `'`}${getNodeBinary()}${isWindows ? "\"" : `'`}`
 }
 
-const isHostMachine = os.platform() === "win32"
-const userDirectory = isHostMachine ? os.tmpdir() + "-" + Math.random() : "" // to avoid getting system browser
-
 /**
  * https://www.browserless.io/docs/chrome-flags
  * https://www.chromium.org/developers/how-tos/run-chromium-with-flags/
@@ -68,8 +65,6 @@ export const DEFAULT_CHROME_FLAGS: ChromeArg[] = [
     "--disable-gpu",
     "--disable-gpu-compositing",
     "--disable-gpu-rasterization",
-    "--remote-debugging-address=0.0.0.0",
-    `--remote-debugging-port=${CHROME_PORT}`,
     "--disable-resize-lock=true",
     "--disable-background-networking",
     "--disable-client-side-phishing-detection",
@@ -96,7 +91,6 @@ export const DEFAULT_CHROME_FLAGS: ChromeArg[] = [
     "--disable-search-engine-choice-screen",
     "--simulate-outdated-no-au=\"Tue, 31 Dec 2099 23:59:59 GMT\"",
     "--start-maximized",
-    ...(userDirectory ? [`--user-data-dir=${userDirectory}` satisfies ChromeArg] : []),
     // Candidates for overriding:
     "--headless=true",
     "--window-size=1800,1000",
