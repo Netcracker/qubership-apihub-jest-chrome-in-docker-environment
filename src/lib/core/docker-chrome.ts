@@ -16,7 +16,7 @@
 
 import os from "os"
 import { bgYellow, black, green, red, yellow } from "colors"
-import { CHROME_PORT, CONSOLE_PREFIX, DOCKER_CONTAINER_NAME, getConnectToChromeMaxAttempts, getConnectToChromeRetryIntervals, getDockerBinaryCLIPath, getHostCheckPort } from "./defaults"
+import { CHROME_INTERNAL_PORT, CHROME_PORT, CONSOLE_PREFIX, DOCKER_CONTAINER_NAME, getConnectToChromeMaxAttempts, getConnectToChromeRetryIntervals, getDockerBinaryCLIPath, getHostCheckPort } from "./defaults"
 import { runCommand } from "./run-command"
 import { ChromeArg } from "../index.types"
 import { dockerContainerIpAddress, getDockerHostIpAddress, getHostnameIpAddress, ping } from "./utils"
@@ -53,6 +53,14 @@ const dockerUp = async (flags: ChromeArg[]): Promise<DockerUpResult> => {
     // if host OS is linux:   docker run ... sh -c '/bin/google-chrome --arg1="a b" "--arg1"'
     const preparedFlags = flags.map(f => f.trim().replace(/^["']|["']$|(?<==)["']/g, isWindows ? `'` : `"`))
     if (headless) {
+      // Chrome 113+ ignores --remote-debugging-address=0.0.0.0 and always binds to 127.0.0.1
+      // for security reasons (https://issues.chromium.org/issues/40261787).
+      // Workaround: Chrome listens on 127.0.0.1:CHROME_INTERNAL_PORT, socat forwards
+      // 0.0.0.0:CHROME_PORT → 127.0.0.1:CHROME_INTERNAL_PORT so that the port is
+      // accessible from outside the container via Podman/Docker port mapping.
+      const chromeCmd = `/bin/google-chrome ${preparedFlags.join(" ")}`
+      const socatCmd = `socat TCP-LISTEN:${CHROME_PORT},fork,reuseaddr,bind=0.0.0.0 TCP:127.0.0.1:${CHROME_INTERNAL_PORT}`
+      const containerCmd = `${socatCmd} & ${chromeCmd}`
       chromeContainerId = (await runCommand(getDockerBinaryCLIPath(), [
         "run",
         "-p", `${CHROME_PORT}:${CHROME_PORT}`,
@@ -61,7 +69,7 @@ const dockerUp = async (flags: ChromeArg[]): Promise<DockerUpResult> => {
         process.env.DOCKER_IMAGE!,
         "sh",
         "-c",
-        `${isWindows ? "\"" : `'`}/bin/google-chrome ${preparedFlags.join(" ")}${isWindows ? "\"" : `'`}`
+        `${isWindows ? "\"" : `'`}${containerCmd}${isWindows ? "\"" : `'`}`
       ])).out.trim();
       await new Promise((res) => {
         setTimeout(() => {

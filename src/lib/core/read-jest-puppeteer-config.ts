@@ -21,7 +21,7 @@ import findNodeModules from "find-node-modules"
 
 import colors from "colors";
 import type { ChromeArg, JestPuppeteerConfig } from "../index.types"
-import { CHROME_PORT, CONSOLE_PREFIX, DEFAULT_CHROME_FLAGS, DEFAULT_PROTOCOL_TIMEOUT } from "./defaults"
+import { CHROME_INTERNAL_PORT, CHROME_PORT, CONSOLE_PREFIX, DEFAULT_CHROME_FLAGS, DEFAULT_PROTOCOL_TIMEOUT } from "./defaults"
 
 const {bgYellow, black, yellow} = colors;
 
@@ -158,7 +158,7 @@ export async function initPuppeteerWithChromeInDockerConfig(): Promise<JestPuppe
         }
     }
     setChromeArgs(mergedConfig, "connect")
-    mergedConfig.connect.args.push("--remote-debugging-address=0.0.0.0", `--remote-debugging-port=${CHROME_PORT}`)
+    mergedConfig.connect.args.push("--remote-debugging-address=0.0.0.0", `--remote-debugging-port=${CHROME_INTERNAL_PORT}`)
     setAutoOpenDevtoolsForTabsFromLaunch(mergedConfig)
     setSowMoFromLaunch(mergedConfig)
     setProtocolTimeout(mergedConfig)

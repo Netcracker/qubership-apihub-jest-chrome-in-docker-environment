@@ -19,6 +19,7 @@ import os from "os"
 
 export const DOCKER_CONTAINER_NAME = "jest-chrome-container"
 export const CHROME_PORT = 9222
+export const CHROME_INTERNAL_PORT = 9223
 
 const isWindows = os.platform() === "win32"
 
