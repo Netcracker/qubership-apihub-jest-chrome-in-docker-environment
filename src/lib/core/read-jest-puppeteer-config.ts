@@ -180,7 +180,6 @@ export async function initPuppeteerWithLocalChromeConfig() {
         )),
         connect: {
             args: [],
-            browserWSEndpoint: "NOT_INITIALIZED_YET_SHOULD_VE_SET_AFTER_CHROME_IS_STARTED"
         }
     }
     mergedConfig.launch.defaultViewport = mergedConfig.launch?.defaultViewport || null;

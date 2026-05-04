@@ -35,8 +35,15 @@ export default async function (jestConfig: Config.ProjectConfig & Config.Argv) {
         const puppeteerConfig = await initPuppeteerWithChromeInDockerConfig()
         const {webSocketUri, hostIpAddress/*, headless*/} = await dockerRunChrome({flags: puppeteerConfig.connect.args});
         await setBrowserWSEndpoint(webSocketUri)
-        // fixme: https://github.com/argos-ci/jest-puppeteer/discussions/577
-        process.env.WORKERS_COUNT = `${jestConfig.maxWorkers ?? 2}`;
+
+        // jest-environment-puppeteer v11 throws "Cannot use connect.browserWSEndpoint with multiple workers"
+        // in startBrowsers(). This is overly restrictive — CDP supports multiple simultaneous clients
+        // on one browser, each working in isolated targets. We set the env vars that workers need
+        // directly, bypassing setupPuppeteer() and its startBrowsers() entirely.
+        const workersCount = jestConfig.maxWorkers ?? 2;
+        process.env.WORKERS_COUNT = `${workersCount}`;
+        process.env.PUPPETEER_WS_ENDPOINTS = JSON.stringify(Array(Number(workersCount)).fill(webSocketUri));
+
         process.env.HOST_ADDRESS = hostIpAddress;
         console.log(bgYellow(black(`\n${CONSOLE_PREFIX} Local server address is ${process.env.HOST_ADDRESS}\n`)));
         process.env.PUPPETEER_SKIP_DOWNLOAD = process.env.PUPPETEER_SKIP_DOWNLOAD ?? "false";
@@ -45,7 +52,6 @@ export default async function (jestConfig: Config.ProjectConfig & Config.Argv) {
         console.log(bgYellow(black(`\n${CONSOLE_PREFIX} Run on host\n`)));
         await initPuppeteerWithLocalChromeConfig()
         dumpPuppeteerConfig()
-
+        await setupPuppeteer(jestConfig);
     }
-    await setupPuppeteer(jestConfig);
 };
