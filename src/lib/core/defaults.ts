@@ -21,6 +21,14 @@ export const DOCKER_CONTAINER_NAME = "jest-chrome-container"
 export const CHROME_PORT = 9222
 export const CHROME_INTERNAL_PORT = 9223
 
+export function workerExternalPort(workerIndex: number): number {
+  return CHROME_PORT + workerIndex * 2
+}
+
+export function workerInternalPort(workerIndex: number): number {
+  return CHROME_INTERNAL_PORT + workerIndex * 2
+}
+
 const isWindows = os.platform() === "win32"
 
 export function getHostCheckPort(){
