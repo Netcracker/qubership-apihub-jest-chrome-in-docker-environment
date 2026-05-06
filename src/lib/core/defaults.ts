@@ -35,7 +35,7 @@ export function getHostCheckPort(){
     return process.env.HOST_CHECK_PORT ? Number(process.env.HOST_CHECK_PORT) : 9009
 }
 export function getConnectToChromeMaxAttempts(){
-    return process.env.CONNECT_TO_CHROME_MAX_ATTEMPTS ? Number(process.env.CONNECT_TO_CHROME_MAX_ATTEMPTS) : 10
+    return process.env.CONNECT_TO_CHROME_MAX_ATTEMPTS ? Number(process.env.CONNECT_TO_CHROME_MAX_ATTEMPTS) : 30
 }
 export function getConnectToChromeRetryIntervals(){
     return process.env.CONNECT_TO_CHROME_RETRY_INTERVAL ? Number(process.env.CONNECT_TO_CHROME_RETRY_INTERVAL) : 2000
