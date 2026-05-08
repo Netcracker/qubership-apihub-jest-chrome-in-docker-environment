@@ -25,7 +25,7 @@
   },
   "peerDependencies": {
     "jest-environment-puppeteer": ">= 11.0.0",
-    "puppeteer": ">= 19.0.0"
+    "puppeteer": ">= 22.0.0"
   },
   "engines": {
     "node": ">=24.0.0"

@@ -21,7 +21,7 @@ import findNodeModules from "find-node-modules"
 
 import colors from "colors";
 import type { ChromeArg, JestPuppeteerConfig } from "../index.types"
-import { CHROME_INTERNAL_PORT, CHROME_PORT, CONSOLE_PREFIX, DEFAULT_CHROME_FLAGS, DEFAULT_PROTOCOL_TIMEOUT } from "./defaults"
+import { CHROME_INTERNAL_PORT, CONSOLE_PREFIX, DEFAULT_CHROME_FLAGS, DEFAULT_PROTOCOL_TIMEOUT } from "./defaults"
 
 const {bgYellow, black, yellow} = colors;
 
