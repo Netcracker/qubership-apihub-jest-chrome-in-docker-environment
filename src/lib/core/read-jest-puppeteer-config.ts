@@ -158,7 +158,7 @@ export async function initPuppeteerWithChromeInDockerConfig(): Promise<JestPuppe
         }
     }
     setChromeArgs(mergedConfig, "connect")
-    mergedConfig.connect.args.push("--remote-debugging-address=0.0.0.0", `--remote-debugging-port=${CHROME_INTERNAL_PORT}`)
+    mergedConfig.connect.args.push(`--remote-debugging-port=${CHROME_INTERNAL_PORT}`)
     setAutoOpenDevtoolsForTabsFromLaunch(mergedConfig)
     setSowMoFromLaunch(mergedConfig)
     setProtocolTimeout(mergedConfig)

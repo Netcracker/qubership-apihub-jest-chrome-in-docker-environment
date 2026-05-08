@@ -116,7 +116,7 @@ const dockerUp = async (flags: ChromeArg[], workersCount: number): Promise<Docke
         })
       )
 
-      return { containerId: chromeContainerId, ipAddress: ipAddress, hostIpAddress: gateway, webSocketUris, headless: false };
+      return { containerId: chromeContainerId, ipAddress: ipAddress, hostIpAddress: gateway, webSocketUris, headless: true };
     } else {
       if (workersCount > 1) {
         throw new Error(`${CONSOLE_PREFIX} Headful mode does not support multiple workers (requested ${workersCount}). Use headless mode for parallel execution.`)
@@ -269,7 +269,6 @@ const contactChrome = async (uri: string, maxAttempts: number, retryDelay: numbe
     return response.json();
   })
 }
-  ;
 
 export async function dockerShutdownChrome() {
   await killChrome();
