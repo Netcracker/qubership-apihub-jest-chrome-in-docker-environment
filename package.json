@@ -1,6 +1,6 @@
 {
   "name": "@netcracker/qubership-apihub-jest-chrome-in-docker-environment",
-  "version": "2.0.1-dev.0",
+  "version": "2.0.1",
   "description": "",
   "main": "dist/lib/index.js",
   "type": "commonjs",
@@ -13,7 +13,7 @@
     "release-finish": "release-finish"
   },
   "devDependencies": {
-    "@netcracker/qubership-apihub-npm-gitflow": "feature-nodejs24",
+    "@netcracker/qubership-apihub-npm-gitflow": "3.1.1",
     "@types/find-node-modules": "2.1.2",
     "@types/jest-environment-puppeteer": "5.0.6",
     "typescript": "5.3.3"
