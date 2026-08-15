@@ -1,6 +1,12 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    /* TypeScript 6 defaults "types" to [] rather than every package under typeRoots. */
+    "types": ["node"],
+    /* TypeScript 6 requires rootDir to be explicit alongside outDir (TS5011). */
+    "rootDir": "./",
+    /* TS 6 reports moduleResolution:node as deprecated (TS5107); still functional through 6.x. */
+    "ignoreDeprecations": "6.0",
     "alwaysStrict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,7 +24,10 @@
     "pretty": true,
     "removeComments": true,
     "strict": true,
-    "target": "ES2015",
+    /* Raised from ES2015: the dotAll (/s) flag used in read-jest-puppeteer-config.ts
+       requires es2018 or later (TS1501). TypeScript 5.5 added regular-expression syntax
+       checking, so this was never reported by the previous compiler. */
+    "target": "ES2018",
     "outDir": "dist/lib",
     "declaration": true
   },
