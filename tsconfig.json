@@ -4,7 +4,10 @@
     /* TypeScript 6 defaults "types" to [] rather than every package under typeRoots. */
     "types": ["node"],
     /* TypeScript 6 requires rootDir to be explicit alongside outDir (TS5011). */
-    "rootDir": "./",
+    /* Must be ./src/lib, matching "include" below: outDir is dist/lib and package.json
+      main is dist/lib/index.js, so src/lib/index.ts has to land at dist/lib/index.js.
+      A rootDir of ./ emits dist/lib/src/lib/index.js and the package entry point 404s. */
+    "rootDir": "./src/lib",
     /* TS 6 reports moduleResolution:node as deprecated (TS5107); still functional through 6.x. */
     "ignoreDeprecations": "6.0",
     "alwaysStrict": true,
