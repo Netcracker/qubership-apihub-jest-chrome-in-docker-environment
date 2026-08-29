@@ -8,8 +8,6 @@
       main is dist/lib/index.js, so src/lib/index.ts has to land at dist/lib/index.js.
       A rootDir of ./ emits dist/lib/src/lib/index.js and the package entry point 404s. */
     "rootDir": "./src/lib",
-    /* TS 6 reports moduleResolution:node as deprecated (TS5107); still functional through 6.x. */
-    "ignoreDeprecations": "6.0",
     "alwaysStrict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,8 +16,12 @@
       "ESNext",
       "DOM"
     ],
-    "module": "commonjs",
-    "moduleResolution": "Node",
+    /* Node executes this jest environment directly - nothing bundles it - so NodeNext is
+       what describes it. The package has no "type": "module", so NodeNext still emits
+       CommonJS require() calls; this changes resolution, not output. Was "Node", which
+       TypeScript 7 removed (TS5108). */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noUnusedLocals": false,
